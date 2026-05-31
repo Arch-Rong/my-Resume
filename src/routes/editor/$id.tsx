@@ -13,6 +13,7 @@ import {
 	type Resume,
 	saveResume,
 } from "#/lib/resume-storage";
+import { useEditorToolbar } from "#/stores/editor-toolbar";
 
 export const Route = createFileRoute("/editor/$id")({
 	component: EditorPage,
@@ -23,6 +24,7 @@ type EditorTab = "markdown" | "css";
 function EditorPage() {
 	const { id } = useParams({ from: "/editor/$id" });
 	const navigate = useNavigate();
+	const { open: toolbarOpen } = useEditorToolbar();
 	const [resume, setResume] = useState<Resume | null>(null);
 	const [tab, setTab] = useState<EditorTab>("markdown");
 	const [savedHint, setSavedHint] = useState(false);
@@ -192,7 +194,7 @@ function EditorPage() {
 				</div>
 
 				{/* 中间预览 */}
-				<div className="hidden min-w-0 flex-1 md:flex rounded-lg ">
+				<div className="hidden min-w-0 flex-1 md:flex rounded-lg bg-pink-200">
 					<PreviewPane
 						markdown={resume.markdown}
 						css={resume.css}
@@ -201,18 +203,26 @@ function EditorPage() {
 					/>
 				</div>
 
-				{/* 右侧工具栏 */}
-				<EditorToolbar
-					resume={resume}
-					onSave={() => persist(resume)}
-					onRename={handleRename}
-					onNewResume={handleNewResume}
-					onPaperSize={(paperSize) => patchSettings({ paperSize })}
-					onThemeColor={(themeColor) => patchSettings({ themeColor })}
-					onExportMarkdown={handleExportMarkdown}
-					onImportMarkdown={handleImportMarkdown}
-					onExportPdf={handleExportPdf}
-				/>
+				{/* 右侧工具栏（可折叠） */}
+				<aside
+					className={`shrink-0 overflow-hidden transition-[width,opacity] duration-200 ease-out ${
+						toolbarOpen ? "w-52 opacity-100 xl:w-56" : "w-0 opacity-0"
+					}`}
+				>
+					{toolbarOpen ? (
+						<EditorToolbar
+							resume={resume}
+							onSave={() => persist(resume)}
+							onRename={handleRename}
+							onNewResume={handleNewResume}
+							onPaperSize={(paperSize) => patchSettings({ paperSize })}
+							onThemeColor={(themeColor) => patchSettings({ themeColor })}
+							onExportMarkdown={handleExportMarkdown}
+							onImportMarkdown={handleImportMarkdown}
+							onExportPdf={handleExportPdf}
+						/>
+					) : null}
+				</aside>
 			</div>
 		</div>
 	);

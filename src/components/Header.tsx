@@ -1,8 +1,20 @@
-import { Link } from "@tanstack/react-router";
-import { Github, LayoutGrid } from "lucide-react";
+import { Link, useRouterState } from "@tanstack/react-router";
+import {
+	Github,
+	LayoutGrid,
+	PanelRightClose,
+	PanelRightOpen,
+} from "lucide-react";
+import { useEditorToolbarStore } from "#/stores/editor-toolbar";
 import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
+	const toolbarOpen = useEditorToolbarStore((s) => s.open);
+	const toggleToolbar = useEditorToolbarStore((s) => s.toggle);
+	const isEditorPage = useRouterState({
+		select: (s) => s.location.pathname.startsWith("/editor/"),
+	});
+
 	return (
 		<header className="sticky top-0 z-50 border-b border-border bg-[var(--header-bg)] backdrop-blur-md">
 			<nav className="mx-auto flex h-14 w-full max-w-[1600px] items-center justify-between gap-4 px-4 sm:px-6">
@@ -27,6 +39,23 @@ export default function Header() {
 						<LayoutGrid size={16} strokeWidth={1.75} />
 						<span className="hidden sm:inline">我的简历</span>
 					</Link>
+
+					{isEditorPage ? (
+						<button
+							type="button"
+							onClick={toggleToolbar}
+							className="rounded-lg p-2 text-fg-muted transition hover:bg-[var(--card-hover)] hover:text-fg"
+							aria-label={toolbarOpen ? "收起工具栏" : "展开工具栏"}
+							title={toolbarOpen ? "收起工具栏" : "展开工具栏"}
+						>
+							{toolbarOpen ? (
+								<PanelRightClose size={18} strokeWidth={1.75} />
+							) : (
+								<PanelRightOpen size={18} strokeWidth={1.75} />
+							)}
+						</button>
+					) : null}
+
 					<ThemeToggle />
 					<a
 						href="https://github.com/Arch-Rong"

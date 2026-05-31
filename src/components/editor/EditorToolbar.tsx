@@ -85,7 +85,7 @@ export function EditorToolbar({
 	onExportPdf,
 }: EditorToolbarProps) {
 	return (
-		<aside className="flex h-full w-52 shrink-0 flex-col overflow-y-auto border-l border-border bg-elevated xl:w-56">
+		<aside className="flex h-full w-52 shrink-0 flex-col overflow-y-auto border-l border-border bg-editor xl:w-56">
 			<ToolbarSection icon={Save} title="File">
 				<ToolbarButton onClick={onSave} shortcut="⌘ S">
 					Save
