@@ -1,0 +1,30 @@
+---
+description: Tailwind CSS 4 与项目视觉规范（高级简洁、深色优先）
+globs: "{src/**/*.tsx,src/styles.css}"
+alwaysApply: false
+---
+
+# 样式
+
+## 技术
+
+- Tailwind 4：`@import "tailwindcss"` 在 `src/styles.css`
+- 主题色用 CSS 变量：`--sea-ink`、`--sea-ink-soft`、`--accent`、`--line`、`--bg-base`
+- 字体：Inter（UI）+ Instrument Serif（标题 `.display-title`）
+- 布局容器：`.page-wrap`（max-width 1080px）
+
+## 落地页类名
+
+- Hero：`.landing-hero`、`.landing-headline`、`.landing-cta`
+- 特性：`.landing-grid`、`.landing-panel`
+- 导航：`.site-header`、`.site-brand`、`.site-nav-link`
+
+## 原则
+
+- 保持**高级简洁**：少装饰、多留白、弱边框
+- 新页面复用现有 token，不随意新增 hex 色
+- 打印/PDF 样式后续放独立 print CSS，与预览共用变量
+
+## Biome
+
+`src/styles.css` 在 biome 中排除格式化；手动编辑时保持与现有风格一致。

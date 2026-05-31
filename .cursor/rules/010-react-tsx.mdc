@@ -1,0 +1,42 @@
+---
+description: React 19 组件与 TSX 规范（基于 awesome-cursor-rules-mdc/react 裁剪）
+globs: src/**/*.tsx
+alwaysApply: false
+---
+
+# React / TSX
+
+## 组件
+
+- 仅函数组件，不用 class
+- 一个文件一个主组件；路由页在 `src/routes/`
+- Props 用 `interface` 或 `type`，避免 `React.FC`
+- 优先命名导出；路由文件按 TanStack 约定导出 `Route`
+
+## Hooks
+
+- 自定义 hook 以 `use` 开头，放在 `src/hooks/` 或功能目录
+- 副作用放 `useEffect`，避免在 render 里读 `window`/`localStorage`（注意 SSR  hydration）
+
+## 示例
+
+```tsx
+interface ResumeCardProps {
+	id: string;
+	title: string;
+}
+
+export function ResumeCard({ id, title }: ResumeCardProps) {
+	return (
+		<article className="landing-panel">
+			<h2>{title}</h2>
+		</article>
+	);
+}
+```
+
+## 禁止
+
+- 无必要的 `useMemo` / `useCallback`
+- 在组件内定义大段内联 style（用 Tailwind 或 `styles.css`）
+- 引入未在 `package.json` 声明的依赖

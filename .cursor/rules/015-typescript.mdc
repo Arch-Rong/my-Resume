@@ -1,0 +1,35 @@
+---
+description: TypeScript 严格模式与类型约定（基于 awesome-cursor-rules-mdc/typescript 裁剪）
+globs: src/**/*.ts
+alwaysApply: false
+---
+
+# TypeScript
+
+## 严格性
+
+项目已开启 `strict: true`。禁止用 `any`；外部/未知数据用 `unknown` + 类型收窄。
+
+## 类型定义
+
+- 简历等领域模型放 `src/types/` 或 `src/lib/` 旁
+- 字面量联合优于 enum：`type PaperSize = "a4" | "letter"`
+- 使用 `import type` 导入纯类型（`verbatimModuleSyntax`）
+
+## 示例
+
+```ts
+export interface Resume {
+	id: string;
+	title: string;
+	markdown: string;
+	updatedAt: number;
+}
+
+export type PaperSize = "a4" | "letter";
+```
+
+## 异步
+
+- 用 `async/await`，错误要有意义地向上抛或处理
+- IndexedDB 封装成独立模块，不在 UI 组件里直接操作

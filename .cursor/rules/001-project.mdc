@@ -1,0 +1,36 @@
+---
+description: My Resume 项目总览、技术栈与开发原则（始终生效）
+alwaysApply: true
+---
+
+# My Resume — 项目规则
+
+## 产品
+
+仿 [oh-my-cv](https://ohmycv.app/)：浏览器内 Markdown 写简历、实时预览、本地存储、导出 PDF。无登录、无后端。
+
+## 技术栈
+
+- React 19 + TypeScript + Vite + **TanStack Start / Router**
+- Tailwind CSS 4（`src/styles.css`，CSS 变量主题）
+- Biome：tab 缩进、双引号、`pnpm check`
+- 规划：CodeMirror 6、react-markdown、Zustand、IndexedDB
+
+## 必读文档
+
+- `docs/TECH_STACK.md` — 选型
+- `docs/FEATURES.md` — 功能分期
+- `docs/HOME.md` — 首页
+- `AGENTS.md` — Agent 总览
+
+## 代码原则
+
+- 最小 diff，不重构无关代码
+- 路径别名 `#/*` / `@/*` → `src/`
+- **不要**手改 `src/routeTree.gen.ts`（TanStack 自动生成）
+- **不要**未经用户要求 git commit
+- 回复用户用**中文**
+
+## 验证
+
+改完 TypeScript/React 后运行：`pnpm check`
