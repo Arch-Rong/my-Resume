@@ -29,7 +29,7 @@ export default function Header() {
 					</Link>
 					<ThemeToggle />
 					<a
-						href="https://github.com"
+						href="https://github.com/Arch-Rong"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="rounded-lg p-2 text-fg-muted transition hover:bg-[var(--card-hover)] hover:text-fg"

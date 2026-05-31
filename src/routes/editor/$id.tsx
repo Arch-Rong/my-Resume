@@ -179,18 +179,15 @@ function EditorPage() {
 						))}
 					</div>
 					<div className="min-h-0 flex-1">
-						{tab === "markdown" ? (
-							<CodeEditor
-								value={resume.markdown}
-								onChange={(markdown) => patch({ markdown })}
-							/>
-						) : (
-							<CodeEditor
-								value={resume.css}
-								onChange={(css) => patch({ css })}
-								placeholder="/* 自定义 CSS */"
-							/>
-						)}
+						<CodeEditor
+							language={tab}
+							value={tab === "markdown" ? resume.markdown : resume.css}
+							onChange={(text) =>
+								tab === "markdown"
+									? patch({ markdown: text })
+									: patch({ css: text })
+							}
+						/>
 					</div>
 				</div>
 
