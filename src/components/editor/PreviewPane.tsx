@@ -57,6 +57,11 @@ export function PreviewPane({
 								{children}
 							</ul>
 						),
+						ol: ({ children }) => (
+							<ol className="mb-3 list-decimal space-y-1 pl-5 text-sm text-preview-fg/90">
+								{children}
+							</ol>
+						),
 						li: ({ children }) => (
 							<li className="leading-relaxed">{children}</li>
 						),
@@ -68,6 +73,28 @@ export function PreviewPane({
 						em: ({ children }) => (
 							<em className="text-preview-fg/70">{children}</em>
 						),
+						pre: ({ children }) => (
+							<pre className="mb-3 overflow-x-auto rounded-md border border-preview-fg/10 bg-preview-fg/5 p-3 text-xs leading-relaxed whitespace-pre-wrap">
+								{children}
+							</pre>
+						),
+						code: ({ className, children }) => {
+							const isInline = !className;
+							if (isInline) {
+								return (
+									<code className="rounded bg-preview-fg/10 px-1.5 py-0.5 font-mono text-[0.85em] text-preview-fg">
+										{children}
+									</code>
+								);
+							}
+							return (
+								<code
+									className={`block font-mono text-preview-fg/90 ${className}`}
+								>
+									{children}
+								</code>
+							);
+						},
 					}}
 				>
 					{body}
