@@ -6,6 +6,7 @@ import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import remarkDirective from "remark-directive";
 import remarkGfm from "remark-gfm";
 import { remarkAdmonition } from "#/lib/remark-admonition";
+import { remarkResumeRow } from "#/lib/remark-resume-row";
 import type { PaperSize } from "#/lib/resume-storage";
 
 interface PreviewPaneProps {
@@ -174,6 +175,16 @@ const previewComponents = {
 	danger: ({ children }) => (
 		<Admonition variant="danger">{children}</Admonition>
 	),
+	"resume-row": ({ children }) => (
+		<div className="resume-row mb-2 flex w-full items-baseline gap-3 text-sm text-preview-fg/90">
+			{children}
+		</div>
+	),
+	"resume-row-col": ({ children }) => (
+		<span className="resume-row-col min-w-0 flex-1 leading-relaxed first:text-left last:text-right [&:not(:first-child):not(:last-child)]:text-center">
+			{children}
+		</span>
+	),
 } as Components;
 
 export function PreviewPane({
@@ -196,7 +207,12 @@ export function PreviewPane({
 			>
 				{css ? <style>{css}</style> : null}
 				<ReactMarkdown
-					remarkPlugins={[remarkGfm, remarkDirective, remarkAdmonition]}
+					remarkPlugins={[
+						remarkGfm,
+						remarkDirective,
+						remarkAdmonition,
+						remarkResumeRow,
+					]}
 					components={previewComponents}
 				>
 					{body}
